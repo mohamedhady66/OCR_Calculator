@@ -1,0 +1,46 @@
+# GitHub Actions workflow for automatic deployment to Azure
+# This will auto-deploy your app whenever you push to main branch
+
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore OCR_Calculator/OCR_Calculator.csproj
+    
+    - name: Build
+      run: dotnet build OCR_Calculator/OCR_Calculator.csproj --configuration Release --no-restore
+    
+    - name: Publish
+      run: dotnet publish OCR_Calculator/OCR_Calculator.csproj -c Release -o ./publish
+    
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ./publish
+
+# To use this workflow:
+# 1. Create an Azure Web App
+# 2. Download the publish profile from Azure Portal
+# 3. Add these secrets to your GitHub repository:
+#    - AZURE_WEBAPP_NAME: Your app name
+#    - AZURE_WEBAPP_PUBLISH_PROFILE: Contents of the publish profile file
+# 4. Push to main branch - automatic deployment!

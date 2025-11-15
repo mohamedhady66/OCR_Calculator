@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCR Calculator</title>
+    
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="ocr-calculator.css" />
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+    
+<div class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <!-- Animated background particles -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+    </div>
+    
+    <!-- Main container -->
+    <div class="relative z-10 w-full max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-12 animate-fade-in">
+            <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 mb-4 orbitron">
+                OCR CALCULATOR
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl">
+                Upload an image, extract numbers, and watch the magic happen ✨
+            </p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-xl animate-slide-up">
+            <!-- Upload Area -->
+            <div id="uploadArea" class="border-3 border-dashed border-purple-400/50 rounded-2xl p-12 text-center cursor-pointer transition-all duration-300 hover:border-purple-400 hover:bg-purple-400/5 mb-8">
+                <input type="file" id="imageInput" accept="image/*" class="hidden">
+                <div id="uploadContent">
+                    <svg class="w-20 h-20 mx-auto mb-6 text-purple-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <h3 class="text-2xl font-bold text-white mb-2">Drop your image here</h3>
+                    <p class="text-gray-400">or click to browse</p>
+                </div>
+                <div id="imagePreview" class="hidden">
+                    <img id="previewImg" class="max-h-96 mx-auto rounded-xl shadow-lg">
+                </div>
+            </div>
+
+            <!-- Processing Status -->
+            <div id="processingStatus" class="hidden mb-8">
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="loader"></div>
+                    <span class="text-xl text-purple-300 animate-pulse">Processing your image...</span>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <p id="progressText" class="text-center text-gray-400 mt-2 text-sm">Initializing OCR...</p>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="hidden">
+                <!-- Extracted Numbers -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                        </svg>
+                        Extracted Numbers
+                    </h3>
+                    <div id="numbersContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                        <!-- Numbers will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Sum Display -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 blur-3xl"></div>
+                    <div class="relative glass-card-dark rounded-2xl p-8 text-center">
+                        <p class="text-gray-400 text-lg mb-2">Total Sum</p>
+                        <div id="sumDisplay" class="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 orbitron animate-number-pop">
+                            0
+                        </div>
+                        <div class="mt-6 flex justify-center space-x-4">
+                            <button onclick="resetCalculator()" class="btn-secondary">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                                </svg>
+                                Try Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div id="errorDisplay" class="hidden p-6 bg-red-500/10 border-2 border-red-500/50 rounded-xl">
+                <div class="flex items-start">
+                    <svg class="w-6 h-6 text-red-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                    </svg>
+                    <div>
+                        <h4 class="text-red-400 font-semibold mb-1">Error</h4>
+                        <p id="errorMessage" class="text-red-300"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-gray-500 text-sm animate-fade-in">
+            <p>Powered by Tesseract.js OCR Technology</p>
+        </div>
+    </div>
+</div>
+
+    <!-- Tesseract.js for OCR -->
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="ocr-calculator.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net8.0": []
+  },
+  "packageFolders": {
+    "/Users/mohamed.hady/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/mohamed.hady/RiderProjects/OCR_Calculator/OCR_Calculator/OCR_Calculator.csproj",
+      "projectName": "OCR_Calculator",
+      "projectPath": "/Users/mohamed.hady/RiderProjects/OCR_Calculator/OCR_Calculator/OCR_Calculator.csproj",
+      "packagesPath": "/Users/mohamed.hady/.nuget/packages/",
+      "outputPath": "/Users/mohamed.hady/RiderProjects/OCR_Calculator/OCR_Calculator/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/mohamed.hady/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "/Users/mohamed.hady/Documents/smartops-edge-service-manager_latest/SmartOps.Edge.ServiceManager/SmartOps.Edge.ServiceManager/OfflinePackages": {},
+        "/Users/mohamed.hady/Documents/smartops-groupdetection-processor/test/SmartOps.Edge.GroupDetection.UnitTest/OfflinePackages": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://artifact-npm.devsnc.com/repository/snc-nuget": {},
+        "https://artifact-npm.devsnc.com/repository/snc-nuget-proxy/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
